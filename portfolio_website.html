@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kashish Suvarna - Portfolio</title>
+    <style>
+        :root {
+            --deep-red: #8E0D3C;
+            --blackcurrant: #1D1842;
+            --orange: #EF3B33;
+            --rose-pink: #FDA1A2;
+            --text-color: #333;
+            --light-text: #f8f9fa;
+            --background: #ffffff;
+            --sidebar-width: 280px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text-color);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--blackcurrant);
+            color: var(--light-text);
+            padding: 2rem 1rem;
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        .profile-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .profile-img {
+        width: 100px; /* Set the desired width */
+        height: 100px; /* Set the desired height */
+        border-radius: 50%; /* Makes the image circular */
+        overflow: hidden; /* Ensures the image fits within the circle */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        }
+
+        .profile-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Ensures the image covers the area without distortion */
+        }
+
+
+        .profile-name {
+            font-weight: 600;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .profile-intro {
+            font-size: 0.9rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            line-height: 1.4;
+        }
+
+        .nav-menu {
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+
+        .nav-menu ul {
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            text-decoration: none;
+            color: var(--light-text);
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-menu a:hover, .nav-menu a.active {
+            background-color: var(--deep-red);
+            transform: translateX(10px);
+            box-shadow: -5px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .social-icons {
+            margin-top: auto;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--light-text);
+            color: var(--blackcurrant);
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .icon:hover {
+            transform: scale(1.1) rotate(5deg);
+            background-color: var(--rose-pink);
+            border-color: var(--light-text);
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 2rem;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: var(--rose-pink);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .navbar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shine 3s infinite linear;
+            z-index: 1;
+        }
+
+        @keyframes shine {
+            to {
+                left: 100%;
+            }
+        }
+
+        .navbar ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: var(--blackcurrant);
+            font-weight: 600;
+            transition: all 0.3s;
+            position: relative;
+            padding: 0.3rem 0;
+        }
+
+        .navbar a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--deep-red);
+            transition: width 0.3s ease;
+        }
+
+        .navbar a:hover::after, .navbar a.active::after {
+            width: 100%;
+        }
+
+        .navbar a:hover, .navbar a.active {
+            color: var(--deep-red);
+            transform: translateY(-2px);
+        }
+
+        /* Page Content Styles */
+        .page-content {
+            padding: 1rem;
+            min-height: 70vh;
+        }
+
+        .home-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70vh;
+        }
+
+        .home-text {
+            flex: 1;
+        }
+
+        .home-text h1 {
+            font-size: 7rem;
+            margin-bottom: 1rem;
+            color: var(--deep-red);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .home-text p {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+        }
+
+        .home-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .home-image-placeholder {
+            width: 500px; /* adjust as needed */
+            height: 500px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #ccc; /* fallback background */
+        }
+
+        .home-image-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* About Page */
+        .about-content {
+            padding: 1rem;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .about-content h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--deep-red);
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            animation: slideIn 1s ease-in-out;
+        }
+
+        .skills-section, .hobbies-section {
+            margin-bottom: 2rem;
+            animation: slideIn 1.2s ease-in-out;
+        }
+
+        .skills-section h3, .hobbies-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--orange);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .skill-item {
+            background-color: var(--blackcurrant);
+            color: var(--light-text);
+            padding: 1rem;
+            border-radius: 5px;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .skill-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--orange);
+            transition: all 0.4s;
+            z-index: -1;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-5px);
+            color: var(--light-text);
+        }
+
+        .skill-item:hover::before {
+            left: 0;
+        }
+
+        .hobbies-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .hobby-item {
+            background-color: var(--rose-pink);
+            padding: 0.75rem 1.5rem;
+            border-radius: 20px;
+            font-weight: 500;
+            color: var(--blackcurrant);
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .hobby-item:hover {
+            transform: scale(1.05);
+            background-color: var(--deep-red);
+            color: var(--light-text);
+            border-color: var(--rose-pink);
+        }
+
+        /* Education Page */
+        .education-item {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+            background-color: var(--rose-pink);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform-origin: left;
+            transition: all 0.3s;
+            animation: slideIn 1s ease-in-out;
+            animation-fill-mode: both;
+        }
+
+        .education-item:nth-child(even) {
+            animation-delay: 0.2s;
+        }
+
+        .education-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            background: linear-gradient(to right, var(--rose-pink), rgba(253, 161, 162, 0.8));
+        }
+
+        .education-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--blackcurrant);
+        }
+
+        .education-item p {
+            margin-bottom: 0.5rem;
+        }
+
+        .education-item .duration {
+            font-style: italic;
+            color: var(--deep-red);
+            font-weight: 500;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Projects Page */
+        .project-item {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+            background-color: rgba(29, 24, 66, 0.9);
+            color: var(--light-text);
+            transition: all 0.3s;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            animation: fadeIn 1s ease-in-out;
+            animation-delay: calc(0.2s * var(--i, 1));
+            animation-fill-mode: both;
+        }
+
+        .project-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--orange);
+            transition: all 0.4s;
+            z-index: -1;
+        }
+
+        .project-item:hover {
+            transform: translateY(-5px) translateX(5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+        }
+
+        .project-item:hover::before {
+            width: 100%;
+            background: linear-gradient(90deg, var(--orange), var(--deep-red));
+        }
+
+        .project-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--rose-pink);
+            position: relative;
+            display: inline-block;
+        }
+
+        .project-item .role {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--light-text);
+        }
+
+        .project-item .objective {
+            font-style: italic;
+            margin-bottom: 1rem;
+            color: var(--rose-pink);
+        }
+
+        .project-item ul {
+            margin-left: 1.5rem;
+        }
+
+        .project-item li {
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .project-item li::before {
+            content: '▹';
+            position: absolute;
+            left: -20px;
+            color: var(--orange);
+        }
+
+        /* Extracurricular Page */
+        .extracurricular-list {
+            margin-left: 1.5rem;
+            counter-reset: achievement;
+            list-style: none;
+        }
+
+        .extracurricular-list li {
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+            position: relative;
+            padding-left: 2rem;
+            padding-bottom: 1rem;
+            border-left: 2px solid var(--rose-pink);
+            padding-left: 2rem;
+            animation: fadeIn 0.8s ease-in-out;
+            animation-delay: calc(0.15s * var(--i, 1));
+            animation-fill-mode: both;
+        }
+
+        .extracurricular-list li::before {
+            counter-increment: achievement;
+            content: counter(achievement);
+            position: absolute;
+            left: -1rem;
+            top: -0.5rem;
+            background: var(--deep-red);
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .extracurricular-list li:hover {
+            transform: translateX(5px);
+        }
+
+        .extracurricular-list li:hover::before {
+            background: var(--orange);
+            transform: scale(1.1);
+        }
+
+        /* Helper Classes */
+        .page-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--deep-red);
+            border-bottom: 2px solid var(--rose-pink);
+            padding-bottom: 0.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 50%;
+            height: 2px;
+            background-color: var(--orange);
+            animation: expandWidth 1.5s ease-in-out infinite alternate;
+        }
+        
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        /* Ensure only one page content is visible at a time */
+        .page-content {
+            display: none;
+        }
+
+        .page-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="profile-section">
+            <div class="profile-img">
+                <img src="\profile.jpg" alt="Profile Picture">
+              </div>
+            <h2 class="profile-name">Kashish Suvarna</h2>
+            <p class="profile-intro">Electronics & Telecommunication Engineering Student | Frontend Developer | Tech Enthusiast</p>
+        </div>
+        
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="#home" class="nav-link active" data-page="home">Home</a></li>
+                <li><a href="#about" class="nav-link" data-page="about">About</a></li>
+                <li><a href="#education" class="nav-link" data-page="education">Education</a></li>
+                <li><a href="#projects" class="nav-link" data-page="projects">Projects</a></li>
+                <li><a href="#extracurricular" class="nav-link" data-page="extracurricular">Extracurricular</a></li>
+            </ul>
+        </nav>
+        
+        <div class="social-icons">
+            <a href="mailto:kashishudaysuvarna@gmail.com" class="icon">✉</a>
+            <a href="https://linkedin.com/in/kashish-suvarna-35a081310/" class="icon">in</a>
+            <a href="tel:7045543940" class="icon">📞</a>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+            <ul>
+                <li><a href="#home" class="nav-link active" data-page="home">HOME</a></li>
+                <li><a href="#about" class="nav-link" data-page="about">ABOUT</a></li>
+                <li><a href="#education" class="nav-link" data-page="education">EDUCATION</a></li>
+                <li><a href="#projects" class="nav-link" data-page="projects">PROJECTS</a></li>
+                <li><a href="#extracurricular" class="nav-link" data-page="extracurricular">EXTRACURRICULAR</a></li>
+            </ul>
+        </nav>
+        
+        <!-- Home Page Content -->
+        <div id="home" class="page-content active">
+            <div class="home-content">
+                <div class="home-text">
+                    <h1>Hello,</h1>
+                    <p>My Name is Kashish,<br>and this is My Portfolio.</p>
+                </div>
+                <div class="home-image">
+                    <div class="home-image-placeholder">
+                        <img src="\profile.jpg" alt="Profile Picture">
+                    </div>
+                </div>                
+            </div>
+        </div>
+        
+        <!-- About Page Content -->
+        <div id="about" class="page-content">
+            <h1 class="page-title">About Me</h1>
+            <div class="about-content">
+                <p>As a Third-year student pursuing a degree in Electronics and Telecommunication Engineering with minors in Computer Science, I am passionate about leveraging technology to solve complex problems and drive innovation. I aspire to be a software engineer with a strong foundation in computer science and a passion for developing impactful software solutions. I am experienced in frontend development, data structures, and algorithms.</p>
+                
+                <div class="skills-section">
+                    <h3>My Skills</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">C++</div>
+                        <div class="skill-item">C</div>
+                        <div class="skill-item">Python</div>
+                        <div class="skill-item">HTML</div>
+                        <div class="skill-item">CSS</div>
+                        <div class="skill-item">JavaScript</div>
+                        <div class="skill-item">MERN Stack</div>
+                        <div class="skill-item">DSA</div>
+                        <div class="skill-item">Git/GitHub</div>
+                        <div class="skill-item">Linux</div>
+                        <div class="skill-item">Windows</div>
+                        <div class="skill-item">SQL</div>
+                        <div class="skill-item">MongoDB</div>
+                        <div class="skill-item">Assembly Lang</div>
+                        <div class="skill-item">Analog Circuits</div>
+                        <div class="skill-item">WordPress</div>
+                    </div>
+                </div>
+                
+                <div class="hobbies-section">
+                    <h3>My Hobbies</h3>
+                    <div class="hobbies-list">
+                        <div class="hobby-item">Reading</div>
+                        <div class="hobby-item">Writing</div>
+                        <div class="hobby-item">Outdoor Sports</div>
+                        <div class="hobby-item">Drawing</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Education Page Content -->
+        <div id="education" class="page-content">
+            <h1 class="page-title">Education</h1>
+            
+            <div class="education-item">
+                <h3>Bharatiya Vidya Bhavans Sardar Patel Institute of Technology</h3>
+                <p><strong>Bachelor of Technology</strong> - Electronics and Telecommunication Engineering</p>
+                <p><strong>CGPA:</strong> 8.65</p>
+                <p><strong>Minors:</strong> Computer Science</p>
+                <p class="duration">2022-2026</p>
+            </div>
+            
+            <div class="education-item">
+                <h3>Aryan foundation's Lakshya Prep jr college</h3>
+                <p><strong>Higher Secondary Education</strong></p>
+                <p><strong>12th (PCM+Computer science):</strong> 92 percentage</p>
+                <p class="duration">2020-2022</p>
+            </div>
+        </div>
+        
+        <!-- Projects Page Content -->
+        <div id="projects" class="page-content">
+            <h1 class="page-title">Projects</h1>
+            
+            <div class="project-item">
+                <h3>Empowering Farmers with Digital Marketing and Community Engagement</h3>
+                <p class="role"><strong>Role:</strong> Front-End Developer</p>
+                <p class="objective"><strong>Objective:</strong> Enhance market reach and engagement for farmers</p>
+                <ul>
+                    <li>Developed a website using React.</li>
+                    <li>Developed a website for direct transactions between farmers and buyers, simplifying the process.</li>
+                    <li>Improved market demand tracking and communication</li>
+                    <li>Implemented extra features like AI assistant chatbox, voice assistant.</li>
+                    <li>The website can be translated into various local Indian languages for ease of use.</li>
+                </ul>
+            </div>
+            
+            <div class="project-item">
+                <h3>Multipurpose Trainer Kit Development</h3>
+                <p class="role"><strong>Role:</strong> Technical Team Member</p>
+                <p class="objective"><strong>Objective:</strong> Design a kit for generating square, triangular, and sine waveforms.</p>
+                <ul>
+                    <li>Used 8051 microcontroller for waveform generation</li>
+                    <li>Created circuit designs, simulations, and PCB layout.</li>
+                    <li>Outcome: Successfully showcased in a contest, recognized for technical accuracy.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Extracurricular Page Content -->
+        <div id="extracurricular" class="page-content">
+            <h1 class="page-title">Extracurricular Activities</h1>
+            
+            <ul class="extracurricular-list">
+                <li>Finalist in alphaByte 2.0 (National-Level Hackathon) conducted by Pimpri Chinchwad College of Engineering – Ranked among Top 20 teams out of 600+ registrations.</li>
+                <li>Finalist in Quasar 3.0 (National-Level Hackathon) conducted by Vasantdada Patil Pratishthan's College of Engineering – Secured a spot in the Top 60 teams among 2500+ participants.</li>
+                <li>1st Place in Shark Tank (Idea Presentation) at Alchemy 25 (VJTI) for 'Tasko' – A collaborative team effort recognized for innovation and problem solving.</li>
+                <li>Actively participated in the SE Hackathon (SPIT) for Web design, showcasing proficiency in front-end development.</li>
+                <li>Contributed as a technical team member in a hardware competition, demonstrating hands-on expertise in electronic and telecommunications.</li>
+                <li>Earned a certification in Project Management via NPTEL, strengthening skills in organization and project coordination.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for page navigation
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            // Set animation index for project and extracurricular items
+            document.querySelectorAll('.project-item').forEach((item, index) => {
+                item.style.setProperty('--i', index + 1);
+            });
+            
+            document.querySelectorAll('.extracurricular-list li').forEach((item, index) => {
+                item.style.setProperty('--i', index + 1);
+            });
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    // Add a small pop effect when clicking
+                    link.style.transform = 'scale(1.1)';
+                    setTimeout(() => {
+                        link.style.transform = '';
+                    }, 200);
+                    
+                    // Get the page id from data attribute
+                    const pageId = link.getAttribute('data-page');
+                    
+                    // Hide all pages with a fade effect
+                    document.querySelectorAll('.page-content').forEach(page => {
+                        if (page.classList.contains('active')) {
+                            page.style.opacity = 0;
+                            setTimeout(() => {
+                                page.classList.remove('active');
+                                showNewPage(pageId);
+                            }, 300);
+                        } else {
+                            page.classList.remove('active');
+                        }
+                    });
+                    
+                    // Function to show the new page with animation
+                    function showNewPage(id) {
+                        const newPage = document.getElementById(id);
+                        newPage.classList.add('active');
+                        newPage.style.opacity = 0;
+                        setTimeout(() => {
+                            newPage.style.opacity = 1;
+                            newPage.style.transition = 'opacity 0.5s ease';
+                        }, 50);
+                        
+                        // Reset animation for elements that have them
+                        if (id === 'projects') {
+                            document.querySelectorAll('.project-item').forEach(item => {
+                                item.style.animation = 'none';
+                                setTimeout(() => {
+                                    item.style.animation = '';
+                                }, 10);
+                            });
+                        }
+                        
+                        if (id === 'extracurricular') {
+                            document.querySelectorAll('.extracurricular-list li').forEach(item => {
+                                item.style.animation = 'none';
+                                setTimeout(() => {
+                                    item.style.animation = '';
+                                }, 10);
+                            });
+                        }
+                    }
+                    
+                    // If no active pages (first load), show new page immediately
+                    if (!document.querySelector('.page-content.active')) {
+                        showNewPage(pageId);
+                    }
+                    
+                    // Update active nav links
+                    document.querySelectorAll('.nav-link').forEach(navLink => {
+                        navLink.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked link and its corresponding link in other nav
+                    document.querySelectorAll(`.nav-link[data-page="${pageId}"]`).forEach(matchedLink => {
+                        matchedLink.classList.add('active');
+                    });
+                });
+            });
+            
+            // Add hover ripple effect to buttons
+            const buttons = document.querySelectorAll('.nav-link, .social-icons .icon');
+            
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', function(e) {
+                    let ripple = document.createElement('span');
+                    ripple.classList.add('ripple-effect');
+                    
+                    const diameter = Math.max(this.clientWidth, this.clientHeight);
+                    const radius = diameter / 2;
+                    
+                    ripple.style.width = ripple.style.height = `${diameter}px`;
+                    ripple.style.left = `${e.clientX - this.getBoundingClientRect().left - radius}px`;
+                    ripple.style.top = `${e.clientY - this.getBoundingClientRect().top - radius}px`;
+                    
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+        });
+    </script>
+    
+    <style>
+        /* Additional fun animations and effects */
+        .ripple-effect {
+            position: absolute;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            pointer-events: none;
+        }
+        
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+        
+        .nav-menu a, .icon {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Adding transitions to all elements for smoother interactions */
+        * {
+            transition: all 0.3s ease;
+        }
+        
+        /* Cursor effects */
+        .nav-link, .skill-item, .hobby-item, .social-icons .icon {
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Attach click event listener to all nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', event => {
+                    event.preventDefault();
+                    
+                    const pageId = link.getAttribute('data-page');
+    
+                    // Hide all pages
+                    document.querySelectorAll('.page').forEach(page => {
+                        page.classList.remove('active');
+                    });
+    
+                    // Show the selected page
+                    document.getElementById(pageId).classList.add('active');
+                    
+                    // Update active nav links
+                    document.querySelectorAll('.nav-link').forEach(navLink => {
+                        navLink.classList.remove('active');
+                    });
+    
+                    // Add active class to all matching nav links
+                    document.querySelectorAll(`.nav-link[data-page="${pageId}"]`).forEach(matchedLink => {
+                        matchedLink.classList.add('active');
+                    });
+                });
+            });
+        });
+    </script>    
+</body>
+</html>
